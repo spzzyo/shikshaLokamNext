@@ -85,11 +85,21 @@ import { ExportIcon } from "../icons/accounts/export-icon";
 export const Attendance = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const [image, setImage] = useState(null);
-  const [uploadedImage, setUploadedImage] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [apiData, setApiData] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
 
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  type AttendanceRecord = {
+    name: string;
+    status: string;
+    date: string;
+  };
+  
+  type ApiResponse = {
+    attendance: AttendanceRecord[];
+  };
+  
+  const [apiData, setApiData] = useState<ApiResponse | null>(null);
   useEffect(() => {
     if (uploadedImage) {
       fetchResults();
@@ -107,7 +117,8 @@ export const Attendance = () => {
       }
 
 
-      const data = await response.json();
+      const data: ApiResponse = await response.json();
+
       setApiData(data);
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -115,7 +126,7 @@ export const Attendance = () => {
   };  
   const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
-  const onDrop = async (acceptedFiles) => {
+  const onDrop = async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (file) {
       setImage(file);
@@ -123,7 +134,7 @@ export const Attendance = () => {
     }
   };
 
-  const uploadImage = async (file) => {
+  const uploadImage = async (file: File) => {
     setUploading(true);
     const formData = new FormData();
     formData.append("file", file);
@@ -148,7 +159,11 @@ export const Attendance = () => {
     }
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: "image/*" });
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
+    onDrop, 
+    accept: { "image/*": [] } // Use an object instead of a string
+  });
 
   return (
     <div className="my-10 px-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">

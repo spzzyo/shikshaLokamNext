@@ -1,6 +1,9 @@
 import React from "react";
-export const WhatsAppIcon = ({ className }) => (
-    <svg
+interface WhatsAppIconProps {
+  className?: string;
+}
+
+export const WhatsAppIcon: React.FC<WhatsAppIconProps> = ({ className }) => (    <svg
       className={className}
       viewBox="0 0 24 24"
       fill="currentColor"
