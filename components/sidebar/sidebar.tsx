@@ -46,9 +46,10 @@ export const SidebarWrapper = () => {
                 href="/dashboard/students"
               />
               <SidebarItem
-                isActive={pathname === "/attendance"}
+                isActive={pathname === "/dashboard/attendance"}
                 title="Attendance"
                 icon={<CustomersIcon />}
+                href="/dashboard/attendance"
               />
               <CollapseItems
                 icon={<BalanceIcon />}
