@@ -51,10 +51,17 @@ export const SidebarWrapper = () => {
                 icon={<CustomersIcon />}
                 href="/dashboard/attendance"
               />
-              <CollapseItems
+              {/* <CollapseItems
                 icon={<BalanceIcon />}
                 items={["View Papers", "Create Papers", "Past Papers"]}
                 title="Exam Section"
+              /> */}
+
+<SidebarItem
+                icon={<BalanceIcon />}
+                isActive={pathname === "/dashboard/qpaper"}
+                title="AI - Question Paper Generator "
+                href="/dashboard/qpaper"
               />
              
               
