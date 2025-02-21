@@ -5,6 +5,7 @@ import { Document,pdfjs, Page } from "react-pdf";
 import { Input, Button } from "@nextui-org/react";
 
 
+import { Upload } from "lucide-react";
 
 
 
@@ -15,6 +16,17 @@ export const Qpaper = () => {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
   const [input, setInput] = useState("");
   const [pdfUrl, setPdfUrl] = useState("/qpaper.pdf");
+
+const [file, setFile] = useState<File | null>(null);
+
+
+const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const uploadedFile = event.target.files?.[0]; // Optional chaining to avoid errors
+  if (uploadedFile) {
+    setFile(uploadedFile);
+    console.log("File selected:", uploadedFile.name);
+  }
+};
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,6 +42,12 @@ export const Qpaper = () => {
   };
 
     const [preview, setPreview] = useState(false);
+    const handleButtonClick = (text:string) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: "user", text },
+      ]);
+    };
   
 
   return (
@@ -113,18 +131,41 @@ instrucshuns
 </div>
 
 
-  {/* Suggestion Buttons */}
-  <div className="mt-3 flex gap-2">
-    <button className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded">Recommend More Questions 
-    ✨ </button>
-    <button className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded">Generate Formatted Question Paper 
-    ✨</button>
-    <button className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded">Give feedback as per uploaded syllabus 
-    ✨ </button>
-  </div>
+<div className="mt-3 flex gap-2">
+  <button 
+    onClick={() => handleButtonClick("Recommend More Questions ")} 
+    className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded"
+  >
+    Recommend More Questions ✨
+  </button>
+
+  <button 
+    onClick={() => handleButtonClick("Generate Formatted Question Paper ")} 
+    className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded"
+  >
+    Generate Formatted Question Paper ✨
+  </button>
+
+  <button 
+    onClick={() => handleButtonClick("Give feedback as per uploaded syllabus ")} 
+    className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded"
+  >
+    Give feedback as per uploaded syllabus ✨
+  </button>
+</div>
+
 
   {/* Input Field & Send Button */}
   <div className="mt-4 flex">
+  <label htmlFor="file-upload" className="cursor-pointer">
+    <Upload className="w-6 h-6 text-blue-600 mr-2" />
+    <input
+      id="file-upload"
+      type="file"
+      className="hidden"
+      onChange={handleFileUpload}
+    />
+  </label>
     <Input
       value={input}
       onChange={(e) => setInput(e.target.value)}
