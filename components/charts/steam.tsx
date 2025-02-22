@@ -3,14 +3,28 @@ import Chart, { Props } from "react-apexcharts";
 
 const state: Props["series"] = [
   {
-    name: "Series1",
-    data: [31, 40, 28, 51, 42, 109, 100],
+    name: "High Achievers",
+    data: [20, 40, 55, 65, 75, 85, 90, 95, 97, 99], // Mostly ahead, slight dips
   },
   {
-    name: "Series2",
-    data: [11, 32, 45, 32, 34, 52, 41],
+    name: "Consistent Performers",
+    data: [15, 35, 45, 55, 65, 70, 78, 83, 88, 90], // Gradual improvement
+  },
+  {
+    name: "Late Bloomers",
+    data: [10, 20, 30, 50, 55, 65, 80, 85, 87, 89], // Slow start, strong finish
+  },
+  {
+    name: "Fluctuating Learners",
+    data: [30, 25, 40, 60, 50, 70, 65, 85, 75, 95], // More ups and downs
+  },
+  {
+    name: "Struggling Students",
+    data: [25, 30, 35, 40, 50, 55, 60, 65, 70, 75], // Steady but slower growth
   },
 ];
+
+
 
 const options: Props["options"] = {
   chart: {
@@ -27,14 +41,16 @@ const options: Props["options"] = {
     },
     id: "basic-bar",
     foreColor: "hsl(var(--nextui-default-800))",
-    stacked: true,
+    stacked: false,
     toolbar: {
       show: false,
     },
   },
 
   xaxis: {
-    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+    categories: [
+      "January", "February", "March", "April", "July", "August", "September", "November", "December"
+    ],
     labels: {
       // show: false,
       style: {

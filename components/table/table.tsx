@@ -35,7 +35,7 @@ export const TableWrapper = () => {
             <TableRow
               key={item.id}
               className="cursor-pointer hover:bg-blue-100 transition-colors"
-              onClick={() => router.push(`/student/${item.id}`)} // Correct routing
+              onClick={() => router.push(`/dashboard/students/${item.id}`)} // Correct routing
             >
               {(columnKey) => (
                 <TableCell>
