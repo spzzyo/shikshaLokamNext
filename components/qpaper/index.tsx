@@ -14,13 +14,65 @@ import { Upload } from "lucide-react";
 
 export const Qpaper = () => {
   const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
-  const [input, setInput] = useState("");
   const [pdfUrl, setPdfUrl] = useState("/qpaper.pdf");
+  
+  const [file, setFile] = useState<File | null>(null);
+  const [isDefaultUsed, setIsDefaultUsed] = useState(true);
 
-const [file, setFile] = useState<File | null>(null);
-
-
-const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+const placeholdertext= `Generate a hindi paper with this content. केंद्रीय विद्यालय
+  वार्षिक परीक्षा 2024
+  विषय: हिंदी
+  कक्षा: 5
+  समय: 2 घंटे | अधिकतम अंक: 100
+  
+  निर्देश:
+  
+  सभी प्रश्न अनिवार्य है।
+  उत्तर अच्छे से और साफ लिखना।
+  जहां जरूरी हो, वहां उदाहरण दे कर समझाए।
+  प्रश्न 1: अपठित गद्यांश (10 अंक)
+  नीचे दिया गय गद्यांश पढ़े और उत्तर लिखे:
+  
+  एक समय की बात है, एक गांव में एक बूढ़ा आदमी रहता था। वह बहुत ही ईमानदार और दयालु था। गांव के लोग उनकी बहुत इज्जत करते थे। एक दिन गांव में एक व्यापारी आया और उसने बूढ़े आदमी से कुछ पूछा...
+  
+  बूढ़े व्यक्ति के गुण क्या थे?
+  गांववाले उनको क्यों पसंद करते थे?
+  व्यापारी ने क्या पूछा होगा?
+  प्रश्न 2: व्याकरण (20 अंक)
+  (अ) इन शब्दों के विलोम लिखो: (5 अंक)
+  अंधकार, सुख, आग, जीत, कठोर
+  
+  (ब) संज्ञा के प्रकार बताओ और उदाहरण दो। (5 अंक)
+  
+  (स) सही शब्द से खाली जगह भरो: (5 अंक)
+  
+  सूरज _____ से चमक रहा है। (तेज़ी, रोशनी)
+  मोहन बहुत _____ बच्चा है। (समझदार, लाल)
+  (द) नीचे दिए वाक्य सही करो: (5 अंक)
+  
+  राम स्कूल जा रहा हैं।
+  मेरे पास दो किताबे है।
+  प्रश्न 3: निबंध लेखन (20 अंक)
+  नीचे दिए गए विषयों में से किसी एक पर 8-10 वाक्य लिखो:
+  
+  मेरा प्रिय त्योहार
+  विज्ञान का महत्त्व
+  किताबें हमारे सबसे अच्छे दोस्त
+  प्रश्न 4: पत्र लेखन (10 अंक)
+  अपने दोस्त को जन्मदिन की शुभकामनाएं देते हुए एक पत्र लिखो।
+  
+  प्रश्न 5: कविता लेखन (10 अंक)
+  चार पंक्तियों की एक छोटी कविता लिखो।
+  
+  प्रश्न 6: चित्र वर्णन (20 अंक)
+  नीचे दिए गए चित्र को देखकर 5-6 वाक्य लिखो।
+  (चित्र: बगीचे में खेलते बच्चे)
+  
+  `;
+  
+  const [input, setInput] = useState(placeholdertext);
+  
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
   const uploadedFile = event.target.files?.[0]; // Optional chaining to avoid errors
   if (uploadedFile) {
     setFile(uploadedFile);
@@ -59,7 +111,7 @@ const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
   </h2>
 
   {/* Chat Window */}
-  <div className="flex-1 overflow-y-auto border p-4 rounded bg-white shadow overflow-y-auto flex flex-col">
+  <div className="flex-1 overflow-y-auto border p-4 rounded bg-white shadow h-full max-h-screen flex flex-col">
   {/* Example Messages */}
   <div className="flex flex-col items-end">
     <div className="p-2 my-1 max-w-[60%] rounded-md bg-blue-100 text-left overflow-y-auto  max-h-36">
@@ -131,27 +183,35 @@ instrucshuns
 </div>
 
 
-<div className="mt-3 flex gap-2">
+<div className="mt-3   flex gap-2">
+<button 
+    onClick={() => handleButtonClick("Upload Handwritten Papers ")} 
+    className="border-blue-600 border-2 text-sm border-dashed font-semibold hover:bg-blue-300 px-1 py-1 rounded"
+  >
+    Upload Handwritten Papers ✨
+  </button>
   <button 
     onClick={() => handleButtonClick("Recommend More Questions ")} 
-    className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded"
+    className="border-blue-600 border-2 text-sm border-dashed font-semibold hover:bg-blue-300 px-1 py-1 rounded"
   >
     Recommend More Questions ✨
   </button>
 
   <button 
     onClick={() => handleButtonClick("Generate Formatted Question Paper ")} 
-    className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded"
+    className="border-blue-600 border-2 text-sm border-dashed font-semibold hover:bg-blue-300 px-1 py-1 rounded"
   >
     Generate Formatted Question Paper ✨
   </button>
 
   <button 
     onClick={() => handleButtonClick("Give feedback as per uploaded syllabus ")} 
-    className="border-blue-600 border-2 border-dashed font-semibold hover:bg-blue-300 px-3 py-2 rounded"
+    className="border-blue-600 border-2 text-sm border-dashed font-semibold hover:bg-blue-300 px-1 py-1 rounded"
   >
     Give feedback as per uploaded syllabus ✨
   </button>
+
+
 </div>
 
 
@@ -170,7 +230,7 @@ instrucshuns
       value={input}
       onChange={(e) => setInput(e.target.value)}
       placeholder="Type a message..."
-      className="flex-1"
+      className="flex-1 max-h-20 overflow-y-auto"
     />
     <Button onClick={sendMessage} className="ml-2 bg-blue-600 text-white">
       Send
@@ -179,7 +239,7 @@ instrucshuns
 </div>
 
       {/* PDF Viewer */}
-      <div className="relative w-1/2 p-6 bg-white flex flex-col items-center">
+      <div className="relative w-1/2 p-6 bg-white max-h-screen flex flex-col items-center">
       {!preview && (
         <button
           onClick={() => setPreview(true)}

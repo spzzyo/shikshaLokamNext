@@ -16,23 +16,31 @@ export const RenderCell = ({ user, columnKey }: Props) => {
   switch (columnKey) {
     case "name":
       return (
+        <div    className="cursor-pointer hover:bg-blue-100 transition-colors"
+>
+
         <User
-          avatarProps={{
-            src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-          }}
-          name={cellValue}
+        avatarProps={{
+          src: user.avatar,
+        }}
+        name={cellValue}
         >
           {user.email}
         </User>
+          </div>
       );
-    case "role":
+    case "details":
       return (
         <div>
           <div>
             <span>{cellValue}</span>
           </div>
           <div>
-            <span>{user.team}</span>
+            <div style={{ marginRight: "10px" }}> Grade: {user.grade}</div>
+            <div style={{ marginRight: "10px" }}> Section: {user.section}</div>
+            <div style={{ marginRight: "10px" }}> Age: {user.age}</div>
+            <div > Email: {user.email}</div>
+
           </div>
         </div>
       );
@@ -53,36 +61,19 @@ export const RenderCell = ({ user, columnKey }: Props) => {
         </Chip>
       );
 
-    case "actions":
-      return (
-        <div className="flex items-center gap-4 ">
+      case "contact":
+        return (
           <div>
-            <Tooltip content="Details">
-              <button onClick={() => console.log("View user", user.id)}>
-                <EyeIcon size={20} fill="#979797" />
-              </button>
-            </Tooltip>
+            <div>
+              <span>{cellValue}</span>
+            </div>
+            <div>
+              <div style={{ marginRight: "10px" }}> Phone: {user.phone}</div>
+              <div > Email: {user.email}</div>
+  
+            </div>
           </div>
-          <div>
-            <Tooltip content="Edit user" color="secondary">
-              <button onClick={() => console.log("Edit user", user.id)}>
-                <EditIcon size={20} fill="#979797" />
-              </button>
-            </Tooltip>
-          </div>
-          <div>
-            <Tooltip
-              content="Delete user"
-              color="danger"
-              onClick={() => console.log("Delete user", user.id)}
-            >
-              <button>
-                <DeleteIcon size={20} fill="#FF0080" />
-              </button>
-            </Tooltip>
-          </div>
-        </div>
-      );
+        );
     default:
       return cellValue;
   }

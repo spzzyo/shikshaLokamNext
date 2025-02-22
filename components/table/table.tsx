@@ -1,5 +1,6 @@
+"use client"; // Ensure this is at the top
+
 import {
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -8,12 +9,15 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import React from "react";
+import { useRouter } from "next/navigation"; // Use next/navigation instead of next/router
 import { columns, users } from "./data";
 import { RenderCell } from "./render-cell";
 
 export const TableWrapper = () => {
+  const router = useRouter(); // Works in App Router
+
   return (
-    <div className=" w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4">
       <Table aria-label="Example table with custom cells">
         <TableHeader columns={columns}>
           {(column) => (
@@ -28,7 +32,11 @@ export const TableWrapper = () => {
         </TableHeader>
         <TableBody items={users}>
           {(item) => (
-            <TableRow>
+            <TableRow
+              key={item.id}
+              className="cursor-pointer hover:bg-blue-100 transition-colors"
+              onClick={() => router.push(`/student/${item.id}`)} // Correct routing
+            >
               {(columnKey) => (
                 <TableCell>
                   {RenderCell({ user: item, columnKey: columnKey })}
