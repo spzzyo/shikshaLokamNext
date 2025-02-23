@@ -103,7 +103,7 @@ export default function AccordionFeatures() {
 
   return (
     <section
-      className="bg-base-100 mx-auto max-w-5xl space-y-24 py-24 md:space-y-32"
+      className="bg-base-100 mx-auto max-w-7xl space-y-24 py-24 md:space-y-32"
       id="features"
     >
       <div className="px-8">
@@ -214,7 +214,7 @@ export default function AccordionFeatures() {
                key={feature.id}
                alt={`Feature ${feature.id}: ${feature.title}`}
                loading="lazy"
-               width={1200}
+               width={1500}
                height={600} // Ensure a height is set
                decoding="async"
                data-nimg="1"
