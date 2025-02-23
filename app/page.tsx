@@ -19,7 +19,7 @@ export default function Home() {
       <AccordionFeatures />
     
       
-      <CTA />
+      {/* <CTA /> */}
       <Footer />
     </Container>
     </div>

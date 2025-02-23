@@ -267,7 +267,6 @@ export const Attendance = () => {
       
       </div>
       <div>
-        todo - add defaulty kids highlight,  add some other pretty attendance related features 
       </div>
     </div>
   );

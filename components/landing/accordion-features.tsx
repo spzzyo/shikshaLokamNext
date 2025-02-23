@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 // import TestimonialSingle from "./testimonial-single";
 import feature1 from "../../public/feature_1.gif";
-import feature2 from "../../public/feature_2.png";
+import feature2 from "../../public/feature_2.gif";
 import feature3 from "../../public/feature_3.gif";
 import Image from "next/image";
 

@@ -64,7 +64,7 @@ export function Header() {
         <Link href="/" className="flex gap-2 items-center font-semibold">
           <SVGLogo />
           <span className="text-lg font-bold text-slate-800">
-            TeachTech
+            TeachTechAI
           </span>
         </Link>
         <div className="hidden justify-center items-center lg:flex lg:gap-10">
@@ -117,17 +117,13 @@ export function Header() {
                         <MobileNavLink href="/#features">
                           Features
                         </MobileNavLink>
-                        <MobileNavLink href="/#pricing">
-                          Pricing
-                        </MobileNavLink>
-                        <MobileNavLink href="/#faq">FAQs</MobileNavLink>
-                        <MobileNavLink href="/blog">Blog</MobileNavLink>
+                       
                       </div>
                       <div className="flex flex-col gap-4 mt-8">
                         <Button href="/" outline>
                           Log in
                         </Button>
-                        <Button href="#">Get Started</Button>
+                        <Button href={"/dashboard"}>Get Started</Button>
                       </div>
                     </PopoverPanel>
                   </>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Document,pdfjs, Page } from "react-pdf";
 import { Input, Button } from "@nextui-org/react";
-
+import Image from "next/image";
 
 import { Upload } from "lucide-react";
 
@@ -13,8 +13,8 @@ import { Upload } from "lucide-react";
 
 
 export const Qpaper = () => {
-  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
-  const [pdfUrl, setPdfUrl] = useState("/qpaper.pdf");
+  const [messages, setMessages] = useState<{ text?: string; file?: File; sender: string }[]>([]);
+  const [pdfUrl, setPdfUrl] = useState("/hindiqpaper.pdf");
   
   const [file, setFile] = useState<File | null>(null);
   const [isDefaultUsed, setIsDefaultUsed] = useState(true);
@@ -70,30 +70,49 @@ const placeholdertext= `Generate a hindi paper with this content. केंद�
   
   `;
   
-  const [input, setInput] = useState(placeholdertext);
+  const [input, setInput] = useState("Generate a well formatted Question paper with this image.");
   
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const uploadedFile = event.target.files?.[0]; // Optional chaining to avoid errors
+  const uploadedFile = event.target.files?.[0]; 
   if (uploadedFile) {
     setFile(uploadedFile);
+    setMessages((prev) => [...prev, {  text: "", sender: "user",file: uploadedFile }]);
     console.log("File selected:", uploadedFile.name);
   }
 };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPdfUrl(`/qpaper.pdf?timestamp=${new Date().getTime()}`);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+const [preview, setPreview] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handlePreview = () => {
+    setLoading(true); // Show loader
+    setTimeout(() => {
+      setPreview(true); // Show PDF after delay
+      setLoading(false); // Hide loader
+    }, 2000); // Simulating a delay of 2 seconds
+  };
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setPdfUrl(`/hindiqpaper.pdf?timestamp=${new Date().getTime()}`);
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const sendMessage = () => {
     if (input.trim() === "") return;
     setMessages([...messages, { text: input, sender: "user" }]);
     setInput("");
+    setLoading(true);
+
+  // Simulating a delay before displaying the PDF
+  setTimeout(() => {
+    setPdfUrl("/handwritten.pdf");
+    setLoading(false); // Hide loader after loading is complete
+  }, 2000); 
   };
 
-    const [preview, setPreview] = useState(false);
+    // const [preview, setPreview] = useState(false);
     const handleButtonClick = (text:string) => {
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -116,7 +135,7 @@ const placeholdertext= `Generate a hindi paper with this content. केंद�
   <div className="flex flex-col items-end">
     <div className="p-2 my-1 max-w-[60%] rounded-md bg-blue-100 text-left overflow-y-auto  max-h-36">
       <p className="text-sm">You:</p>
-      <p>
+      {/* <p>
 Generate a well formatted question paper with the below content. <br/><br/>
 
 abc Public school  <br/>
@@ -150,7 +169,9 @@ instrucshuns
 <br/>4 Identify the Picture and Answer  
 <br/>[img: leaf sunlight]  
 <br/>a) What process is happening in the leaf shown in the image? (5 Marks)
-</p>
+</p> */}
+
+<p> {placeholdertext}</p>
 
     </div>
   </div>
@@ -164,22 +185,47 @@ instrucshuns
 
   {/* Dynamic Messages */}
   {messages.map((msg, index) => (
+  <div
+    key={index}
+    className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
+  >
     <div
-      key={index}
-      className={`flex flex-col ${
-        msg.sender === "user" ? "items-end" : "items-start"
+      className={`p-2 my-1 max-w-[60%] rounded-md ${
+        msg.sender === "user" ? "bg-blue-100 text-left" : "bg-gray-200 text-left"
       }`}
     >
-      <div
-        className={`p-2 my-1 max-w-[60%] rounded-md ${
-          msg.sender === "user" ? "bg-blue-100 text-left" : "bg-gray-200 text-left"
-        }`}
-      >
-        <p className="text-sm">{msg.sender === "user" ? "You" : "Assistant"}:</p>
-        <p>{msg.text}</p>
-      </div>
+      <p className="text-sm">{msg.sender === "user" ? "You" : "Assistant"}:</p>
+
+      {/* Render text message if available */}
+      {msg.text && <p>{msg.text}</p>}
+
+      {/* Render file message if available */}
+      {msg.file && (
+        <div className="mt-1">
+          <p className="text-sm text-gray-500">{msg.file.name}</p>
+          {msg.file.type.startsWith("image/") ? (
+            <Image
+            width={200}
+            height={200}
+              src={URL.createObjectURL(msg.file)}
+              alt={msg.file.name}
+              className="mt-1 max-w-[200px] rounded"
+            />
+          ) : (
+            <a
+              href={URL.createObjectURL(msg.file)}
+              download={msg.file.name}
+              className="text-blue-600 underline"
+            >
+              Download File
+            </a>
+          )}
+        </div>
+      )}
     </div>
-  ))}
+  </div>
+))}
+
 </div>
 
 
@@ -239,7 +285,7 @@ instrucshuns
 </div>
 
       {/* PDF Viewer */}
-      <div className="relative w-1/2 p-6 bg-white max-h-screen flex flex-col items-center">
+      {/* <div className="relative w-1/2 p-6 bg-white max-h-screen flex flex-col items-center">
       {!preview && (
         <button
           onClick={() => setPreview(true)}
@@ -252,7 +298,34 @@ instrucshuns
       <div className={`w-full h-full ${!preview ? "blur-3xl overflow-hidden" : ""}`}>
         <h2 className="text-xl font-semibold text-blue-700 mb-4">PDF Preview</h2>
         <div className="border shadow-lg p-4 w-full h-[90%]">
-          <iframe  src="/qpaper.pdf" width="100%" height="500px"></iframe>
+          <iframe  src={pdfUrl} width="100%" height="500px"></iframe>
+        </div>
+      </div>
+    </div> */}
+
+<div className="relative w-1/2 p-6 bg-white max-h-screen flex flex-col items-center">
+      {/* Show Preview Button */}
+      {!preview && !loading && (
+        <button
+          onClick={handlePreview}
+          className="absolute top-1/2 z-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-700 text-white px-4 py-2 rounded shadow-lg"
+        >
+          Preview PDF
+        </button>
+      )}
+
+      {/* Show Loader while loading */}
+      {loading && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-700"></div>
+        </div>
+      )}
+
+      {/* PDF Viewer */}
+      <div className={`w-full h-full ${!preview ? "blur-3xl overflow-hidden" : ""}`}>
+        <h2 className="text-xl font-semibold text-blue-700 mb-4">PDF Preview</h2>
+        <div className="border shadow-lg p-4 w-full h-[90%]">
+          {preview && <iframe src={pdfUrl} width="100%" height="500px"></iframe>}
         </div>
       </div>
     </div>

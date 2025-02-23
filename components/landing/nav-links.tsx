@@ -14,9 +14,7 @@ export function NavLinks() {
     <>  {/* 👈 Wrap everything in a Fragment */}
       {[
         ["Features", "/#features"],
-        ["Pricing", "/#pricing"],
-        ["FAQs", "/#faq"],
-        ["Blog", "/blog"],
+   
       ].map(([label, href], index) => (
         <Link
           key={label}

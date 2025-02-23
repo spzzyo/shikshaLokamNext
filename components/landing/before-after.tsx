@@ -37,8 +37,7 @@ export default function BeforeAfter() {
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </div>
-                  One-size-fits-all approach fails to address individual student
-                  needs
+                  Limited access to technology makes it difficult to adapt lessons to individual student needs.
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="shrink-0 py-1.5">
@@ -55,8 +54,7 @@ export default function BeforeAfter() {
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </div>
-                  Limited resources for personalized lesson planning and
-                  materials
+                 Managing attendance, grading, and lesson planning without automation takes up valuable teaching time.
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="shrink-0 py-1.5">
@@ -73,7 +71,7 @@ export default function BeforeAfter() {
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </div>
-                  Time-consuming grading and assessment processes
+                  Scarcity of localized and language-friendly materials hinders effective teaching.
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="shrink-0 py-1.5">
@@ -90,9 +88,9 @@ export default function BeforeAfter() {
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </div>
-                  Difficulty in tracking individual student progress and
-                  identifying areas for improvement
-                </li>
+                  Poor internet access and minimal exposure to digital tools make tech integration challenging.                </li>
+            
+               
               </ul>
             </div>
           </div>
@@ -111,7 +109,7 @@ export default function BeforeAfter() {
                 </svg>
               </div>
               <h3 className="font-display mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                An AI-powered teaching assistant that enhances education
+                AI-powered teaching assistance tools that enhances education
               </h3>
               <ul className="mt-6 space-y-3 text-base text-white sm:text-lg">
                 <li className="flex items-start gap-3">
@@ -126,8 +124,7 @@ export default function BeforeAfter() {
                       <path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path>
                     </svg>
                   </div>
-                  Personalized learning experiences tailored to each
-                  student&apos;s needs
+                  Student Profiling for progress tracking and personalized lesson planning based on student performance. 
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="shrink-0 py-1.5">
@@ -141,7 +138,7 @@ export default function BeforeAfter() {
                       <path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path>
                     </svg>
                   </div>
-                  AI-generated lesson plans and teaching materials
+                  AI-Powered Attendance Automation: Eliminates manual tracking with ML-based recognition.
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="shrink-0 py-1.5">
@@ -155,7 +152,7 @@ export default function BeforeAfter() {
                       <path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path>
                     </svg>
                   </div>
-                  Automated grading and instant feedback for students
+                  Exam Section Assistance: Simplifies question paper generation in varied formats.
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="shrink-0 py-1.5">
@@ -169,9 +166,21 @@ export default function BeforeAfter() {
                       <path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path>
                     </svg>
                   </div>
-                  Detailed progress tracking and data-driven insights for
-                  targeted interventions
+                  Voice-Based Assistance: Handles scheduling, reminders, and document creation hands-free in regional language support.
                 </li>
+                <li className="flex items-start gap-3">
+                  <div className="shrink-0 py-1.5">
+                    <svg
+                      aria-hidden="true"
+                      className="h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 256 256"
+                    >
+                      <path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"></path>
+                    </svg>
+                  </div>
+                  Offline Tool Access: Enables functionality even in low-connectivity areas.                </li>
               </ul>
             </div>
           </div>

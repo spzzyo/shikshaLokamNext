@@ -11,11 +11,11 @@ function Hero() {
           <div className="hidden sm:flex sm:justify-center"></div>
           <div className="mt-2 text-center">
             <h1 className="text-4xl font-black tracking-tight text-slate-800 sm:text-6xl">
-              All your Focus on teaching,
-              <br /> not endless preparation.
+            All your Focus on Teaching,
+            <br/> We will Handle the Rest!
             </h1>
             <p className="mt-6 text-base font-light leading-8 text-secondary-foreground text-slate-500 sm:text-lg">
-              AI-Powered Lesson Planning Made Easy. For teachers at any level.
+              AI-Powered Assissting tools, to make your teaching journey seamless.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-y-6">
               <Button
