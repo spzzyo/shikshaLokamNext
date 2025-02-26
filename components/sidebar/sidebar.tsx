@@ -97,93 +97,11 @@ export const SidebarWrapper = () => {
   };
 
   const generateExcel = () => {
-    const data = [
-      {
-        name: "Aarya",
-        grade: "3",
-        section: "A",
-        email: "aarya@example.com",
-        phone: "9876543210",
-     
-      },
-      {
-     
-        name: "Addhya",
-        grade: "3",
-        section: "A",
-        email: "addhya@example.com",
-        phone: "9876543211",
-     
-      },
-      {
-      
-        name: "Amrita",
-        grade: "3",
-        section: "A",
-    
-        email: "amrita@example.com",
-        phone: "9876543212",
-      
-      },
-      {
-     
-        name: "Ananay",
-        grade: "3",
-        section: "A",
-
-      
-        email: "ananay@example.com",
-        phone: "9876543213",
-    
-      },
-      {
-      
-        name: "Atif",
-        grade: "3",
-        section: "A",
-        
-        email: "atif@example.com",
-        phone: "9876543214",
-       
-      },
-      {
-      
-        name: "Bhavya",
-        grade: "3",
-        section: "A",
-       
-        email: "bhavya@example.com",
-        phone: "9876543215",
-      
-      },
-      {
-      
-        name: "Devansh",
-        grade: "3",
-        section: "A",
-       
-        email: "devansh@example.com",
-        phone: "9876543216",
-    
-      },
-      {
-      
-        name: "Divyansh",
-        grade: "3",
-        section: "A",
-       
-        email: "divyansh@example.com",
-        phone: "9876543217",
-      
-      }
-    ];
+    setIsLoading(true);
     setTimeout(() => {
-      const worksheet = XLSX.utils.json_to_sheet(data);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-      XLSX.writeFile(workbook, "data.xlsx");
       setIsLoading(false);
-    }, 2000);
+      alert("Failed to generate.");
+    }, 5000);
   };
 
 

@@ -105,11 +105,6 @@ const [preview, setPreview] = useState(false);
     setInput("");
     setLoading(true);
 
-  // Simulating a delay before displaying the PDF
-  setTimeout(() => {
-    setPdfUrl("/handwritten.pdf");
-    setLoading(false); // Hide loader after loading is complete
-  }, 2000); 
   };
 
     // const [preview, setPreview] = useState(false);
