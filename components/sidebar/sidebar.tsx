@@ -39,6 +39,16 @@ export const SidebarWrapper = () => {
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const languages = [
+    { code: "en-IN", label: "English (India)" },
+    { code: "kn-IN", label: "Kannada" },
+    { code: "hi-IN", label: "Hindi" },
+    { code: "ta-IN", label: "Tamil" },
+    { code: "te-IN", label: "Telugu" },
+  ];
+
+  const [selectedLanguage, setSelectedLanguage] = useState("en-IN");
+
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
@@ -58,7 +68,7 @@ export const SidebarWrapper = () => {
 
     recognitionRef.current = new SpeechRecognition();
     recognitionRef.current.continuous = false;
-    recognitionRef.current.lang = "en-IN";
+    recognitionRef.current.lang = selectedLanguage;
     recognitionRef.current.interimResults = false;
     recognitionRef.current.maxAlternatives = 1;
 
@@ -96,14 +106,72 @@ export const SidebarWrapper = () => {
     setModalOpen(false);
   };
 
-  const generateExcel = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Failed to generate.");
-    }, 5000);
-  };
+  const performTool = async () => {
 
+    const queryParam = encodeURIComponent(transcript); // Encode special characters for URL
+    const apiUrl = `http://127.0.0.1:8001/voice_assisstant?user_input=${queryParam}`;
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+          'Accept': '*/*'  // Accepts any content type
+      }
+  });
+  if (response.ok) {
+    let contentType = response.headers.get("Content-Type");
+
+    if (!contentType) {
+      // If Content-Type is null, try to detect manually
+      try {
+          const text = await response.text();
+          if (text.startsWith("{") || text.startsWith("[")) {
+              contentType = "application/json"; // Guess JSON
+          } else if (text.includes(",")) {
+              contentType = "text/csv"; // Guess CSV
+          } else {
+              contentType = "application/octet-stream"; // Fallback
+          }
+      } catch (error) {
+          console.error("Error reading response:", error);
+      }
+  }
+  else {
+
+    if (contentType.includes("application/json")) {
+        // Handle JSON response
+        const jsonData = await response.json();
+        console.log("JSON Response:", jsonData);
+        alert("Performed task: " + JSON.stringify(jsonData));
+
+    } else if (contentType.includes("text/csv")) {
+        // Handle CSV file
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "output.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        alert("CSV file downloaded successfully!");
+
+    } else if (contentType.includes("application/pdf")) {
+        // Handle PDF file
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, "_blank"); // Open PDF in new tab
+        alert("PDF opened in a new tab");
+
+    } else {
+        alert("Unknown response type received.");
+    }
+  }
+} else {
+    alert("Error occurred while performing the task");
+}
+   
+    
+};
 
   return (
     <aside className="h-screen z-[20] sticky top-0">
@@ -160,6 +228,16 @@ export const SidebarWrapper = () => {
           </ModalHeader>
           <ModalBody className="text-gray-700">
             <div className="flex flex-col items-center gap-3 p-4 border border-indigo-300 rounded-lg">
+            <select
+              value={selectedLanguage}
+              onChange={(e) => setSelectedLanguage(e.target.value)}
+            >
+              {languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.label}
+                </option>
+              ))}
+            </select>
               <p className="font-semibold">{isListening ? "Listening..." : "Click to start speaking!"}</p>
               <Button onClick={startListening} className="bg-blue-600 text-white px-4 py-2 rounded-lg">
                 Start Speaking
@@ -170,14 +248,21 @@ export const SidebarWrapper = () => {
               
               <div className="p-3 mt-4 bg-gray-100 text-gray-800 rounded-md">
                 <p className="font-medium">📝 Recognized Text:</p>
-                <p className="text-lg">{transcript}</p>
+                <textarea
+                  className="w-full p-2 mt-2 border rounded-md text-lg"
+                  value={transcript}
+                  onChange={(e) => setTranscript(e.target.value)}
+                  rows={3}
+                />
             </div>
-            <Button onClick={generateExcel} className="bg-blue-600 text-white  px-4 py-2 rounded-lg">
+            <Button onClick={performTool} className="bg-blue-600 text-white  px-4 py-2 rounded-lg">
                 Send
               </Button>
               </div>
               
     )}
+
+
     <div className="p-4 bg-blue-100 text-blue-700 rounded-md shadow-md mt-4">
 <p className="font-semibold">How can Shiksha help?</p>
 <ul className="list-disc ml-5 text-sm">

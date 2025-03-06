@@ -1,0 +1,34 @@
+[
+    {
+        "date": "2025-04-06",
+        "time": "00:00",
+        "type": "Meeting",
+        "agenda": "No agenda provided",
+        "person": "Rinku miss",
+        "link": ""
+    },
+    {
+        "date": "2025-03-27",
+        "time": "14:00",
+        "type": "Meeting",
+        "agenda": "No agenda provided",
+        "person": "Yashika",
+        "link": "No link provided"
+    },
+    {
+        "date": "2025-04-07",
+        "time": "14:00",
+        "type": "Meeting",
+        "agenda": "",
+        "person": "",
+        "link": ""
+    },
+    {
+        "date": "2025-04-07",
+        "time": "14:00",
+        "type": "Meeting",
+        "agenda": "Meeting",
+        "person": "\u0bb0\u0b95\u0bcd\u0bb7\u0bbf\u0ba4\u0bbe \u0b95\u0bc2\u0b9f",
+        "link": ""
+    }
+]

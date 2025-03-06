@@ -14,7 +14,6 @@ import { Upload,X } from "lucide-react";
 
 export const Qpaper = () => {
   const [messages, setMessages] = useState<{ text?: string|null; file?: File|null; sender: string|null }[]>([]);
-  const [pdfUrl, setPdfUrl] = useState("/hindiqpaper.pdf");
   
   const [file, setFile] = useState<File | null>(null);
   const [input, setInput] = useState("");
@@ -29,6 +28,9 @@ export const Qpaper = () => {
 
 const [preview, setPreview] = useState(false);
 const [loading, setLoading] = useState(false);
+const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+const [pdfKey, setPdfKey] = useState(Date.now()); // Unique key to force iframe refresh
+
 
   const handlePreview = () => {
     setLoading(true); // Show loader
@@ -42,7 +44,26 @@ const [loading, setLoading] = useState(false);
     setFile(null);
   };
 
-  const [pdfKey, setPdfKey] = useState(Date.now()); // Unique key to force iframe refresh
+  useEffect(() => {
+    const fetchPdf = async () => {
+      try {
+        const response = await fetch("https://chief-formerly-civet.ngrok-free.app/pdf", {
+          headers: { "ngrok-skip-browser-warning": "69420" }, // Bypass ngrok warning
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch PDF");
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        setPdfUrl(url);
+      } catch (error) {
+        console.error("Error loading PDF:", error);
+      }
+    };
+
+    fetchPdf();
+  }, [pdfKey]);
+
 
   const sendMessage = async () => {
     if (input.trim() === "" && !file) return;
@@ -66,7 +87,7 @@ const [loading, setLoading] = useState(false);
       formData.append("text", input);
       if (file) formData.append("file", file);
   
-      const response = await fetch("http://127.0.0.1:8000/generate", {
+      const response = await fetch("https://chief-formerly-civet.ngrok-free.app/generate", {
         method: "POST",
         body: formData,
         headers: { "Accept": "application/json" },
@@ -194,7 +215,7 @@ const [loading, setLoading] = useState(false);
       
 <iframe
   key={pdfKey} // 🔄 Forces re-render every time sendMessage is called
-  src="http://127.0.0.1:8000/pdf"
+  src={pdfUrl ?? ""}
   width="100%"
   height="600px"
   style={{ border: "none" }}
