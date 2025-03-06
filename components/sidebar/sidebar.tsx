@@ -109,7 +109,7 @@ export const SidebarWrapper = () => {
   const performTool = async () => {
 
     const queryParam = encodeURIComponent(transcript); // Encode special characters for URL
-    const apiUrl = `http://127.0.0.1:8001/voice_assisstant?user_input=${queryParam}`;
+    const apiUrl = `  https://chief-formerly-civet.ngrok-free.app/voice_assisstant?user_input=${queryParam}`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
