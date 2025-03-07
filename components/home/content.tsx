@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { Button, Textarea, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import Calendar from "./calendar";
+import {users} from "@/components/table/data"; 
+
 
 const Chart = dynamic(
   () => import("../charts/steam").then((mod) => mod.Steam),
@@ -14,6 +16,36 @@ export const Content = () => {
   const [message, setMessage] = useState("");
  
 
+  const sendNotification = async () => {
+    if (!message.trim()) {
+      alert("Message cannot be empty!");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://chief-formerly-civet.ngrok-free.app/send-notification",
+        {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        }
+      );
+
+      if (response.ok) {
+        alert("Notification sent successfully!");
+        setMessage(""); // Clear input after sending
+      } else {
+        alert("Failed to send notification.");
+      }
+    } catch (error) {
+      console.error("Error sending notification:", error);
+      alert("Error sending notification.");
+    }
+  };
   
 
   return (
@@ -22,19 +54,10 @@ export const Content = () => {
 
         {/* Notification Broadcaster */}
         <div className="bg-default-50 shadow-lg rounded-2xl p-6 flex-1 min-w-[300px] min-h-min">
-  <h3 className="text-2xl font-bold mb-2 text-primary">📢 Broadcast Notifications</h3>
+  <h3 className="text-2xl font-bold mb-2 text-primary">Broadcast Notifications</h3>
 
   {/* Dropdown for selecting medium */}
-  <Dropdown>
-    <DropdownTrigger>
-      <Button variant="bordered">{medium.toUpperCase()}</Button>
-    </DropdownTrigger>
-    <DropdownMenu onAction={(key) => setMedium(key as string)}>
-      <DropdownItem key="email">Email</DropdownItem>
-      <DropdownItem key="sms">Message</DropdownItem>
-      <DropdownItem key="whatsapp">WhatsApp</DropdownItem>
-    </DropdownMenu>
-  </Dropdown>
+  
 
   {/* Message Input */}
   <Textarea
@@ -45,7 +68,7 @@ export const Content = () => {
   />
 
   {/* Send Button */}
-  <Button className="mt-4 w-full" color="primary">🚀 Send Notification</Button>
+  <Button className="mt-4 w-full" color="primary" onClick={sendNotification}>Send Notification</Button>
 
   {/* Feature Highlight */}
   <div className="mt-4 bg-primary-100 p-3 rounded-lg border-l-4 border-primary">

@@ -18,7 +18,8 @@ export const users = [
     email: "aarya@example.com",
     phone: "9876543210",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Computer Science"],
-    aiOverview: "Aarya is a bright and curious student with a strong grasp of Mathematics and English."
+    aiOverview: "Aarya is a bright and curious student with a strong grasp of Mathematics and English.",
+    communication: "email"
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ export const users = [
     email: "addhya@example.com",
     phone: "9876543211",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Arts & Crafts"],
-    aiOverview: "Addhya is highly creative and excels in Arts & Crafts along with academics."
+    aiOverview: "Addhya is highly creative and excels in Arts & Crafts along with academics.",
+    communication: "call"
   },
   {
     id: 3,
@@ -44,7 +46,8 @@ export const users = [
     email: "amrita@example.com",
     phone: "9876543212",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "General Knowledge"],
-    aiOverview: "Amrita has a keen interest in General Knowledge and enjoys exploring new topics."
+    aiOverview: "Amrita has a keen interest in General Knowledge and enjoys exploring new topics.",
+    communication: "sms"
   },
   {
     id: 4,
@@ -57,7 +60,8 @@ export const users = [
     email: "ananay@example.com",
     phone: "9876543213",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Moral Science"],
-    aiOverview: "Ananay is a responsible student with a strong sense of ethics and values."
+    aiOverview: "Ananay is a responsible student with a strong sense of ethics and values.",
+    communication: "email"
   },
   {
     id: 5,
@@ -70,7 +74,8 @@ export const users = [
     email: "atif@example.com",
     phone: "9876543214",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Music"],
-    aiOverview: "Atif is musically talented and enjoys performing in school events."
+    aiOverview: "Atif is musically talented and enjoys performing in school events.",
+    communication: "call"
   },
   {
     id: 6,
@@ -83,7 +88,8 @@ export const users = [
     email: "bhavya@example.com",
     phone: "9876543215",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Physical Education"],
-    aiOverview: "Bhavya is an active student with a strong inclination towards sports and fitness."
+    aiOverview: "Bhavya is an active student with a strong inclination towards sports and fitness.",
+    communication: "email"
   },
   {
     id: 7,
@@ -96,7 +102,8 @@ export const users = [
     email: "devansh@example.com",
     phone: "9876543216",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Computer Science"],
-    aiOverview: "Devansh shows interest in technology and enjoys learning new computing concepts."
+    aiOverview: "Devansh shows interest in technology and enjoys learning new computing concepts.",
+    communication: "sms"
   },
   {
     id: 8,
@@ -109,6 +116,7 @@ export const users = [
     email: "divyansh@example.com",
     phone: "9876543217",
     subjects: ["Mathematics", "English", "Hindi", "EVS", "Arts & Crafts"],
-    aiOverview: "Divyansh is an innovative thinker who enjoys creative projects."
+    aiOverview: "Divyansh is an innovative thinker who enjoys creative projects.",
+    communication: "call"
   }
 ];
